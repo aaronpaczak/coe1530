@@ -17,7 +17,7 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_6
     }
 }
 
@@ -38,8 +38,6 @@ dependencies {
     implementation('com.google.apis:google-api-services-calendar:v3-rev305-1.23.0') {
         exclude group: 'org.apache.httpcomponents'
     }
-
-    implementation group: 'com.google.oauth-client', name: 'google-oauth-client-java6', version: '1.11.0-beta'
-    implementation group: 'com.google.oauth-client', name: 'google-oauth-client-jetty', version: '1.11.0-beta'
-
+    implementation 'com.google.oauth-client:google-oauth-client-java6:1.11.0-beta'
+    implementation 'com.google.oauth-client:google-oauth-client-jetty:1.11.0-beta'
 }
