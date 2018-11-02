@@ -49,7 +49,7 @@ public class MainView extends AppCompatActivity {
 
 
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.inflateMenu(R.menu.navigation);
+        //navigation.inflateMenu(R.menu.navigation);
         fragmentManager = getSupportFragmentManager();
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
