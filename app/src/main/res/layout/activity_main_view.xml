@@ -12,7 +12,25 @@
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        android:layout_above="@+id/navigation"
-       android:layout_alignParentTop="true"/>
+       android:layout_alignParentTop="true" />
+
+        <!--<fragment android:name="coe1530.eatyourleftovers.TodoItemFragment"-->
+            <!--android:id="@+id/todoitem_fragment"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent" />-->
+
+        <!--<fragment android:name="coe1530.eatyourleftovers.CalendarFragment"-->
+            <!--android:id="@+id/calendar_fragment"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent" />-->
+
+        <!--<fragment android:name="coe1530.eatyourleftovers.MapFragment"-->
+            <!--android:id="@+id/map_fragment"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent" />-->
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

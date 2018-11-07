@@ -10,7 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class MainView extends AppCompatActivity {
+import coe1530.eatyourleftovers.dummy.DummyContent;
+
+public class MainView extends AppCompatActivity implements TodoItemFragment.OnListFragmentInteractionListener {
 
     private BottomNavigationView navigation;
     private Fragment fragment;
@@ -27,7 +29,7 @@ public class MainView extends AppCompatActivity {
                     fragment = new CalendarFragment();
                     break;
                 case R.id.navigation_todo:
-                    fragment = new TodoFragment();
+                    fragment = new TodoItemFragment();
                     break;
                 case R.id.navigation_map:
                     fragment = new MapFragment();
@@ -49,9 +51,13 @@ public class MainView extends AppCompatActivity {
 
 
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.inflateMenu(R.menu.navigation);
+        //navigation.inflateMenu(R.menu.navigation);
         fragmentManager = getSupportFragmentManager();
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
+    }
 }
