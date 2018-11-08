@@ -45,6 +45,7 @@ public class MainView extends AppCompatActivity implements TodoItemFragment.OnLi
     // Code that is run when this activity has begun
     // for this one, since it is the main activity, the is called when the launcher launches this app
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         // Blows up what belongs in the xml file whose xml file is "layout/activity_main_view"
         setContentView(R.layout.activity_main_view);
