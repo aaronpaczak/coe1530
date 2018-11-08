@@ -11,7 +11,7 @@
 <item>
 
     <bitmap
-        android:src="@drawable/product_logo_144dp"
+        android:src="@drawable/mascot"
         android:gravity="center"/>
 
 </item>
