@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.roomorama.caldroid.CaldroidFragment;
 
 import coe1530.eatyourleftovers.dummy.DummyContent;
+import coe1530.eatyourleftovers.dummy.ToDoList;
 
 public class MainView extends AppCompatActivity implements TodoItemFragment.OnListFragmentInteractionListener {
 
@@ -60,7 +61,7 @@ public class MainView extends AppCompatActivity implements TodoItemFragment.OnLi
     }
 
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onListFragmentInteraction(ToDoList.ToDoItem item) {
 
     }
 }

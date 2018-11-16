@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import coe1530.eatyourleftovers.dummy.DummyContent;
 import coe1530.eatyourleftovers.dummy.DummyContent.DummyItem;
+import coe1530.eatyourleftovers.dummy.ToDoList;
 
 import java.util.List;
 
@@ -69,7 +70,7 @@ public class TodoItemFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyTodoItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyTodoItemRecyclerViewAdapter(ToDoList.ITEMS, mListener));
         }
         return view;
     }
@@ -104,6 +105,6 @@ public class TodoItemFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(ToDoList.ToDoItem item);
     }
 }

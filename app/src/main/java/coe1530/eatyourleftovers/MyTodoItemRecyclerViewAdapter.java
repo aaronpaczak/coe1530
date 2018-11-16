@@ -1,5 +1,7 @@
 package coe1530.eatyourleftovers;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.TextView;
 
 import coe1530.eatyourleftovers.TodoItemFragment.OnListFragmentInteractionListener;
 import coe1530.eatyourleftovers.dummy.DummyContent.DummyItem;
+import coe1530.eatyourleftovers.dummy.ToDoList.ToDoItem;
 
 import java.util.List;
 
@@ -18,10 +21,10 @@ import java.util.List;
  */
 public class MyTodoItemRecyclerViewAdapter extends RecyclerView.Adapter<MyTodoItemRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<ToDoItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyTodoItemRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public MyTodoItemRecyclerViewAdapter(List<ToDoItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -30,14 +33,42 @@ public class MyTodoItemRecyclerViewAdapter extends RecyclerView.Adapter<MyTodoIt
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_todoitem, parent, false);
+
+        /*
+         Set the Floating Action Button (FAB) to its corresponding View.
+         Attach an OnClickListener to it, so that when it's clicked, a new intent will be created
+         to launch the AddTaskActivity.
+         */
+
+        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in = new Intent(getActivity(), InsertActivity.class);
+                startActivity(in);
+            }
+        });
+
+
+        FloatingActionButton fabButton = (FloatingActionButton) findViewById(R.id.fab);
+
+        fabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Create a new intent to start an AddTaskActivity
+                Intent addTaskIntent = new Intent(MainActivity.this, AddTaskActivity.class);
+                startActivity(addTaskIntent);
+            }
+        });
+
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mIdView.setText(mValues.get(position).name);
+        holder.mContentView.setText(mValues.get(position).details);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +91,7 @@ public class MyTodoItemRecyclerViewAdapter extends RecyclerView.Adapter<MyTodoIt
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public ToDoItem mItem;
 
         public ViewHolder(View view) {
             super(view);
