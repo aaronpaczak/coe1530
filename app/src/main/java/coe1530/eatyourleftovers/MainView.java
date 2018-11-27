@@ -49,6 +49,7 @@ public class MainView extends AppCompatActivity implements TodoItemFragment.OnLi
         super.onCreate(savedInstanceState);
         // Blows up what belongs in the xml file whose xml file is "layout/activity_main_view"
         setContentView(R.layout.activity_main_view);
+        //setContentView(R.layout.activity_login);
 
 
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
