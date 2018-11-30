@@ -1,5 +1,6 @@
 package coe1530.eatyourleftovers;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
@@ -29,10 +30,11 @@ public class MyTodoItemRecyclerViewAdapter extends RecyclerView.Adapter<MyTodoIt
         mListener = listener;
     }
 
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_todoitem, parent, false);
+                .inflate(R.layout.fragment_todoitem_list, parent, false);
         return new ViewHolder(view);
     }
 

@@ -31,6 +31,10 @@ public class TodoItemFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
+    // Member variables for the adapter and RecyclerView
+    private MyTodoItemRecyclerViewAdapter mAdapter;
+    RecyclerView mRecyclerView;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -52,46 +56,9 @@ public class TodoItemFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-
-
-//        /*
-//         Add a touch helper to the RecyclerView to recognize when a user swipes to delete an item.
-//         An ItemTouchHelper enables touch behavior (like swipe and move) on each ViewHolder,
-//         and uses callbacks to signal when a user is performing these actions.
-//         */
-//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-//            @Override
-//            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-//                return false;
-//            }
-//
-//            // Called when a user swipes left or right on a ViewHolder
-//            @Override
-//            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-//                // TODO: 9.1. Implement swipe delete for a single item
-//
-//                // Retrieve the id of the task to delete
-//                int id = (int) viewHolder.itemView.getTag();
-//
-//                // Build appropriate uri with String row id appended
-//                String stringId = Integer.toString(id);
-//                Uri uri = TaskContract.TaskEntry.CONTENT_URI;
-//                uri = uri.buildUpon().appendPath(stringId).build();
-//
-//                // Delete via a ContentResolver
-//                getContentResolver().delete(uri, null, null);
-//
-//                // TODO: 9.2. Re-query for all tasks after a deletion
-//                getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, MainActivity.this);
-//            }
-//        }).attachToRecyclerView(mRecyclerView);
-
-
-
 
     }
 
@@ -99,19 +66,24 @@ public class TodoItemFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_todoitem_list, container, false);
+        super.onCreate(savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment_todoitem, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyTodoItemRecyclerViewAdapter(ToDoList.ITEMS, mListener));
+        // Set the RecyclerView to its corresponding view
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewTasks);
+        Context context = view.getContext();
+
+        // Set the layout for the RecyclerView to be a linear layout, which measures and
+        // positions items within a RecyclerView into a linear list
+        if (mColumnCount <= 1) {
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        } else {
+            mRecyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
+
+        // Initialize the adapter and attach it to the RecyclerView
+        mAdapter = new MyTodoItemRecyclerViewAdapter(ToDoList.ITEMS, mListener);
+        mRecyclerView.setAdapter(mAdapter);
 
         /*
          Set the Floating Action Button (FAB) to its corresponding View.
@@ -119,7 +91,6 @@ public class TodoItemFragment extends Fragment {
          to launch the AddTaskActivity.
          */
         FloatingActionButton fabButton = view.findViewById(R.id.fab);
-        if (fabButton == null) { System.out.println("NULLLL");}
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
