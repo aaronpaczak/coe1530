@@ -21,12 +21,12 @@ public class ToDoList {
      */
     public static final Map<String, ToDoItem> ITEM_MAP = new HashMap<String, ToDoItem>();
 
-    private static final int COUNT = 1;
+    private static final int COUNT = 10;
 
     static {
         // Add some sample items.
         for (int i = 1; i <= COUNT; i++) {
-            addItem(createItem("Sample ToDoItem", 60, 1, "This is an example item."));
+            addItem(createItem("Sample ToDoItem", 60, COUNT-i, "This is an example item."));
         }
     }
 

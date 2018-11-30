@@ -2,14 +2,33 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_above="@+id/main_container"
+    android:paddingBottom="52dp" >
+
+    <!-- Floating action button that launches AddTaskActivity when clicked -->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_above="@+id/main_container"
+        android:layout_margin="8dp"
+        android:clickable="true"
+        android:elevation="200dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:tint="@android:color/white"
+        app:srcCompat="@android:drawable/ic_input_add"/>
 
     <!-- RecyclerView that is responsible for holding a list of task data -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewTasks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="8dp" />
+        android:clipToPadding="true"
+        android:layout_above="@+id/main_container"
+        android:paddingBottom="25dp"/>
 
     <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
     <!--android:layout_width="wrap_content"-->
@@ -33,16 +52,7 @@
 
     <!--</LinearLayout>-->
 
-    <!-- Floating action button that launches AddTaskActivity when clicked -->
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="67dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:tint="@android:color/white"
-        app:srcCompat="@android:drawable/ic_input_add" />
+
 
 </FrameLayout>
 

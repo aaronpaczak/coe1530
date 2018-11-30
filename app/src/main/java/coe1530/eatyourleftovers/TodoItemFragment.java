@@ -9,6 +9,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,7 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class TodoItemFragment extends Fragment {
+public class TodoItemFragment extends Fragment implements View.OnClickListener{
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -75,15 +76,12 @@ public class TodoItemFragment extends Fragment {
 
         // Set the layout for the RecyclerView to be a linear layout, which measures and
         // positions items within a RecyclerView into a linear list
-        if (mColumnCount <= 1) {
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        } else {
-            mRecyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-        }
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         // Initialize the adapter and attach it to the RecyclerView
         mAdapter = new MyTodoItemRecyclerViewAdapter(ToDoList.ITEMS, mListener);
         mRecyclerView.setAdapter(mAdapter);
+
 
         /*
          Set the Floating Action Button (FAB) to its corresponding View.
@@ -91,14 +89,11 @@ public class TodoItemFragment extends Fragment {
          to launch the AddTaskActivity.
          */
         FloatingActionButton fabButton = view.findViewById(R.id.fab);
-        fabButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Create a new intent to start an AddTaskActivity
-                Intent addTaskIntent = new Intent(getActivity(), AddTaskActivity.class);
-                startActivity(addTaskIntent);
-            }
-        });
+        Log.w("FAB CHECKER", "fab: " + fabButton);
+        Log.w("LAYOUT CHECKER", "layout: " + getView());
+        fabButton.setOnClickListener(this);
+
+
 
 
         return view;
@@ -121,6 +116,17 @@ public class TodoItemFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fab:
+                Intent addTaskIntent = new Intent(getActivity(), AddTaskActivity.class);
+                startActivity(addTaskIntent);
+                break;
+        }
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this
