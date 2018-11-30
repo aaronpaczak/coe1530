@@ -2,10 +2,10 @@
     <string name="app_name">EatYourLeftovers</string>
     <string name="title_calendar">Calendar</string>
     <string name="title_todo">Todo</string>
-    <string name="title_map">Map</string>
+    <string name="title_help">Help</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="map_string">Hello map fragment</string>
+    <string name="help_string">Hello help fragment</string>
     <string name="cal_string">Hello cal fragment</string>
     <string name="todo_string">Hello todo fragment</string>
     <string name="title_activity_login">Sign in</string>
