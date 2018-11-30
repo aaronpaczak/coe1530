@@ -1,17 +1,18 @@
 package coe1530.eatyourleftovers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import coe1530.eatyourleftovers.dummy.DummyContent;
-import coe1530.eatyourleftovers.dummy.DummyContent.DummyItem;
 import coe1530.eatyourleftovers.dummy.ToDoList;
 
 import java.util.List;
@@ -51,10 +52,49 @@ public class TodoItemFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+
+//        /*
+//         Add a touch helper to the RecyclerView to recognize when a user swipes to delete an item.
+//         An ItemTouchHelper enables touch behavior (like swipe and move) on each ViewHolder,
+//         and uses callbacks to signal when a user is performing these actions.
+//         */
+//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+//            @Override
+//            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+//                return false;
+//            }
+//
+//            // Called when a user swipes left or right on a ViewHolder
+//            @Override
+//            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+//                // TODO: 9.1. Implement swipe delete for a single item
+//
+//                // Retrieve the id of the task to delete
+//                int id = (int) viewHolder.itemView.getTag();
+//
+//                // Build appropriate uri with String row id appended
+//                String stringId = Integer.toString(id);
+//                Uri uri = TaskContract.TaskEntry.CONTENT_URI;
+//                uri = uri.buildUpon().appendPath(stringId).build();
+//
+//                // Delete via a ContentResolver
+//                getContentResolver().delete(uri, null, null);
+//
+//                // TODO: 9.2. Re-query for all tasks after a deletion
+//                getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, MainActivity.this);
+//            }
+//        }).attachToRecyclerView(mRecyclerView);
+
+
+
+
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,6 +112,24 @@ public class TodoItemFragment extends Fragment {
             }
             recyclerView.setAdapter(new MyTodoItemRecyclerViewAdapter(ToDoList.ITEMS, mListener));
         }
+
+        /*
+         Set the Floating Action Button (FAB) to its corresponding View.
+         Attach an OnClickListener to it, so that when it's clicked, a new intent will be created
+         to launch the AddTaskActivity.
+         */
+        FloatingActionButton fabButton = view.findViewById(R.id.fab);
+        if (fabButton == null) { System.out.println("NULLLL");}
+        fabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Create a new intent to start an AddTaskActivity
+                Intent addTaskIntent = new Intent(getActivity(), AddTaskActivity.class);
+                startActivity(addTaskIntent);
+            }
+        });
+
+
         return view;
     }
 

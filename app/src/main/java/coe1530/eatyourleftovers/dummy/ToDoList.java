@@ -35,6 +35,11 @@ public class ToDoList {
         ITEM_MAP.put(item.name, item);
     }
 
+    private static void removeItem(ToDoItem item) {
+        ITEMS.remove(item);
+        ITEM_MAP.remove(item.name);
+    }
+
     private static ToDoItem createItem(String name, int duration, int priority, String details) {
         return new ToDoItem(name, duration, priority, makeDetails(name, details));
     }
