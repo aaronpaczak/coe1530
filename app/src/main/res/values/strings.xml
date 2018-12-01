@@ -5,7 +5,10 @@
     <string name="title_help">Help</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="help_string">Hello help fragment</string>
+    <string name="help_string">Welcome to our app! Below you will find some FAQ\'s
+        <P>Click the + Button to add a To Do</P></string>
+
+
     <string name="cal_string">Hello cal fragment</string>
     <string name="todo_string">Hello todo fragment</string>
     <string name="title_activity_login">Sign in</string>
