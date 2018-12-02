@@ -29,7 +29,39 @@ public class MyTodoRecyclerViewAdapter extends RecyclerView.Adapter<MyTodoRecycl
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
+<<<<<<< Updated upstream:app/src/main/java/coe1530/eatyourleftovers/MyTodoRecyclerViewAdapter.java
                 .inflate(R.layout.fragment_todo, parent, false);
+=======
+                .inflate(R.layout.fragment_todoitem, parent, false);
+
+        /*
+         Set the Floating Action Button (FAB) to its corresponding View.
+         Attach an OnClickListener to it, so that when it's clicked, a new intent will be created
+         to launch the AddTaskActivity.
+         */
+
+//        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent in = new Intent(getActivity(), InsertActivity.class);
+//                startActivity(in);
+//            }
+//        });
+//
+//
+//        FloatingActionButton fabButton = (FloatingActionButton) findViewById(R.id.fab);
+//
+//        fabButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                // Create a new intent to start an AddTaskActivity
+//                Intent addTaskIntent = new Intent(MainActivity.this, AddTaskActivity.class);
+//                startActivity(addTaskIntent);
+//            }
+//        });
+
+>>>>>>> Stashed changes:app/src/main/java/coe1530/eatyourleftovers/MyTodoItemRecyclerViewAdapter.java
         return new ViewHolder(view);
     }
 
