@@ -1,36 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--xmlns:tools="http://schemas.android.com/tools"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--tools:context=".AddTaskActivity">-->
-
-    <!--<android.support.design.widget.AppBarLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:theme="@style/AppTheme.AppBarOverlay">-->
-
-        <!--<android.support.v7.widget.Toolbar-->
-            <!--android:id="@+id/toolbar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="?attr/actionBarSize"-->
-            <!--android:background="?attr/colorPrimary"-->
-            <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
-
-    <!--</android.support.design.widget.AppBarLayout>-->
-
-    <!--<include layout="@layout/content_add_task" />-->
-
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/fab"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="bottom|end"-->
-        <!--android:layout_margin="@dimen/fab_margin"-->
-        <!--app:srcCompat="@android:drawable/ic_dialog_email" />-->
-
-<!--</android.support.design.widget.CoordinatorLayout>-->
 
 
 
@@ -49,20 +17,66 @@
     android:paddingStart="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <!-- EditText for getting task description input -->
+    <!-- EditText for getting task title input -->
+
     <EditText
-        android:id="@+id/editTextTaskDescription"
+        android:id="@+id/editTextTaskTitle"
         android:layout_width="match_parent"
+        android:text="ToDo Title"
         android:layout_height="wrap_content"
         android:gravity="start"
         android:paddingBottom ="@dimen/activity_horizontal_margin"/>
 
+    <!-- EditText for getting task description input -->
+    <EditText
+        android:id="@+id/editTextTaskDescription"
+        android:layout_width="match_parent"
+        android:text="ToDo Description"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:paddingBottom ="@dimen/activity_horizontal_margin"/>
+
+    <!-- TextView and linear layout for the time slider for Duration for this task -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Select a duration for your ToDo: "
+            android:textColor="@android:color/primary_text_light" />
+
+        <TextView
+            android:id="@+id/currentSelectedDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="1 hour"
+            android:textAlignment="center"/>
+    </LinearLayout>
+
     <!-- TextView and FrameLayout (which contains buttons) for Priority Selection -->
+    <SeekBar
+        android:id="@+id/durationBar"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="10"
+        android:onClick="onProgressChanged"
+        android:progress="1" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:textColor="@android:color/primary_text_light"
+        android:text="Select a priority for your ToDo: "
         style="@style/TextAppearance.AppCompat.Medium"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"/>
@@ -85,6 +99,7 @@
                 style="?android:attr/buttonBarButtonStyle"
                 android:textColor="@android:color/primary_text_light"
                 android:id="@+id/buttonP1"
+                android:text="High"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -94,6 +109,7 @@
                 style="?android:attr/buttonBarButtonStyle"
                 android:textColor="@android:color/primary_text_light"
                 android:id="@+id/buttonP2"
+                android:text="Normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -103,6 +119,7 @@
                 style="?android:attr/buttonBarButtonStyle"
                 android:textColor="@android:color/primary_text_light"
                 android:id="@+id/buttonP3"
+                android:text="Low"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -146,6 +163,7 @@
     <!-- Add button -->
     <Button
         android:id="@+id/addButton"
+        android:text="Add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -153,5 +171,18 @@
         android:textColor="@android:color/primary_text_dark"
         android:background="@color/colorPrimary"
         android:onClick="onClickAddTask"/>
+
+    <!-- Cancel button -->
+    <Button
+        android:id="@+id/cancelButton"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimary"
+        android:onClick="onClickCancelTask"
+        android:text="Cancel"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/primary_text_dark" />
 
 </LinearLayout>

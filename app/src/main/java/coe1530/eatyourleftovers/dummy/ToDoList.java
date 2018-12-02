@@ -21,7 +21,7 @@ public class ToDoList {
      */
     public static final Map<String, ToDoItem> ITEM_MAP = new HashMap<String, ToDoItem>();
 
-    private static final int COUNT = 10;
+    private static final int COUNT = 0;
 
     static {
         // Add some sample items.
@@ -59,11 +59,13 @@ public class ToDoList {
         public int priority; //priority of task
         public final String details; //additional information about task
 
-        public ToDoItem(String name, int content, int priority, String details) {
+        public ToDoItem(String name, int duration, int priority, String details) {
             this.name = name;
             this.duration = duration;
             this.priority = priority;
             this.details = details;
+
+            addItem(this);
         }
 
         @Override

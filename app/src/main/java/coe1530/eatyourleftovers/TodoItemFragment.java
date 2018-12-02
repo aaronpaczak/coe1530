@@ -13,9 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import coe1530.eatyourleftovers.dummy.ToDoList;
-
 import java.util.List;
 
 /**
@@ -60,7 +58,6 @@ public class TodoItemFragment extends Fragment implements View.OnClickListener{
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-
     }
 
 
@@ -89,12 +86,7 @@ public class TodoItemFragment extends Fragment implements View.OnClickListener{
          to launch the AddTaskActivity.
          */
         FloatingActionButton fabButton = view.findViewById(R.id.fab);
-        Log.w("FAB CHECKER", "fab: " + fabButton);
-        Log.w("LAYOUT CHECKER", "layout: " + getView());
         fabButton.setOnClickListener(this);
-
-
-
 
         return view;
     }
