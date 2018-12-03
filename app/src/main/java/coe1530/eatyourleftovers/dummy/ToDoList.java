@@ -50,6 +50,9 @@ public class ToDoList {
         return builder.toString();
     }
 
+    public static ToDoItem getToDoItem(String name) {
+        return(ITEM_MAP.get(name));
+    }
     /**
      * A dummy item representing a piece of content.
      */

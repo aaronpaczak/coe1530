@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<!--
+    This vertical linear layout contains all the views in the AddTaskActivity code.
+    This includes an EditText to add a task description, and buttons to select a priority
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingStart="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <!-- EditText for getting task title input -->
+
+    <EditText
+        android:id="@+id/editTextTaskTitle"
+        android:layout_width="match_parent"
+        android:text="Old ToDo Title"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:paddingBottom ="@dimen/activity_horizontal_margin"/>
+
+    <!-- EditText for getting task description input -->
+    <EditText
+        android:id="@+id/editTextTaskDescription"
+        android:layout_width="match_parent"
+        android:text="Old ToDo Description"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:paddingBottom ="@dimen/activity_horizontal_margin"/>
+
+    <!-- TextView and linear layout for the time slider for Duration for this task -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Select a duration for your ToDo: "
+            android:textColor="@android:color/primary_text_light" />
+
+        <TextView
+            android:id="@+id/currentSelectedDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="1 hour"
+            android:textAlignment="center"/>
+    </LinearLayout>
+
+    <!-- TextView and FrameLayout (which contains buttons) for Priority Selection -->
+    <SeekBar
+        android:id="@+id/durationBar"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="10"
+        android:onClick="onProgressChanged"
+        android:progress="1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:textColor="@android:color/primary_text_light"
+        android:text="Select a priority for your ToDo: "
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+        <!-- Linear layout that contains all three priority buttons (high, medium, low)
+        in a single line -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:weightSum="3">
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:textColor="@android:color/primary_text_light"
+                android:id="@+id/buttonP1"
+                android:text="High"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onPrioritySelected"/>
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:textColor="@android:color/primary_text_light"
+                android:id="@+id/buttonP2"
+                android:text="Normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onPrioritySelected"/>
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:textColor="@android:color/primary_text_light"
+                android:id="@+id/buttonP3"
+                android:text="Low"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onPrioritySelected"/>
+
+        </LinearLayout>
+
+        <!-- RadioGroup for visible selection of a priority -->
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:weightSum="3">
+
+            <RadioButton
+                android:id="@+id/radButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onPrioritySelected"
+                android:layout_weight="1"/>
+
+            <RadioButton
+                android:id="@+id/radButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onPrioritySelected"
+                android:layout_weight="1"/>
+
+            <RadioButton
+                android:id="@+id/radButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onPrioritySelected"
+                android:layout_weight="1"/>
+
+        </RadioGroup>
+
+    </FrameLayout>
+
+    <!-- Edit button -->
+    <Button
+        android:id="@+id/editButton"
+        android:text="Edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/primary_text_dark"
+        android:background="@color/colorPrimary"
+        android:onClick="onClickEditTask"/>
+
+    <Button
+        android:id="@+id/removeButton"
+        android:text="Remove"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/primary_text_dark"
+        android:background="@color/colorPrimary"
+        android:onClick="onClickRemoveTask"
+        android:layout_marginTop="10dp"/>
+
+    <!-- Cancel button -->
+    <Button
+        android:id="@+id/cancelButton"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimary"
+        android:onClick="onClickCancelTask"
+        android:text="Cancel"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/primary_text_dark" />
+
+</LinearLayout>

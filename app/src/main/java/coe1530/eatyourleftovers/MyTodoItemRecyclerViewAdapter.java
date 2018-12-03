@@ -54,6 +54,12 @@ public class MyTodoItemRecyclerViewAdapter extends RecyclerView.Adapter<MyTodoIt
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem);
+                    Log.w("checking blah blah",holder.mItem.name);
+                    Context context=holder.mView.getContext();
+                    Intent editTaskIntent=new Intent(context, EditTaskActivity.class);
+                    editTaskIntent.putExtra("Task Name",holder.mItem.name);
+                    context.startActivity(editTaskIntent);
+                    Log.w("checking",holder.mItem.name);
                 }
             }
         });

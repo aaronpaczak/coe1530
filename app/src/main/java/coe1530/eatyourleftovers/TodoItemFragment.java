@@ -116,6 +116,11 @@ public class TodoItemFragment extends Fragment implements View.OnClickListener{
                 Intent addTaskIntent = new Intent(getActivity(), AddTaskActivity.class);
                 startActivity(addTaskIntent);
                 break;
+            case R.id.title:
+                Intent editTaskIntent = new Intent(getActivity(), EditTaskActivity.class);
+                editTaskIntent.putExtra("Task Name",R.id.title);
+                startActivity(editTaskIntent);
+                break;
         }
     }
 
