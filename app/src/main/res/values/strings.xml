@@ -5,8 +5,12 @@
     <string name="title_help">Help</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="help_string">Welcome to our app! Below you will find some FAQ\'s
-        <P>Click the + Button to add a To Do</P></string>
+    <string name="help_intro">Welcome to our app! Below you will find some FAQ\'s</string>
+    <string name="help_1">Click the + Button to add a To Do</string>
+    <string name="help_2">Click the skippidibop</string>
+    <string name="help_3">next????????</string>
+    <string name="help_4">p r o f i t</string>
+    <string name="help_hint">Any questions, comments, or concerns?</string>
 
 
     <string name="cal_string">Hello cal fragment</string>
