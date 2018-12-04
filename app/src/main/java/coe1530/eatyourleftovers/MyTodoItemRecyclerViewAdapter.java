@@ -44,8 +44,18 @@ public class MyTodoItemRecyclerViewAdapter extends RecyclerView.Adapter<MyTodoIt
         holder.mItem = mValues.get(position);
         Log.w("VALUE CHECKER", "priority: " + mValues.get(position).priority);
         holder.mTitleView.setText(mValues.get(position).name);
-        holder.mPriorityView.setText(String.valueOf(mValues.get(position).priority));
-
+        switch(mValues.get(position).priority)
+        {
+            case 1:
+                holder.mPriorityView.setText("HIGH");
+                break;
+            case 2:
+                holder.mPriorityView.setText("MEDIUM");
+                break;
+            case 3:
+                holder.mPriorityView.setText("LOW");
+                break;
+        }
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
