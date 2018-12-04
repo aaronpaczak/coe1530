@@ -1,108 +1,141 @@
 package coe1530.eatyourleftovers;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.usage.UsageEvents;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CalendarView;
 
+import com.google.api.services.calendar.model.Event;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CalendarFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link CalendarFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class CalendarFragment extends Fragment {
-//    // TODO: Rename parameter arguments, choose names that match
-//    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-//
-//    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
-//
-//    private OnFragmentInteractionListener mListener;
-//
-//    public CalendarFragment() {
-//        // Required empty public constructor
-//    }
+import java.net.ConnectException;
+import java.util.List;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CalendarFragment.
-     */
-//    // TODO: Rename and change types and number of parameters
-//    public static CalendarFragment newInstance(String param1, String param2) {
-//        CalendarFragment fragment = new CalendarFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
-//
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
-//    }
+public class CalendarFragment extends Fragment implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
+
+    // Calendar View
+    CalendarView mCalendarView;
+
+    // List of Events from the Google Calendar API
+    List<Event> mListOfEvents;
+
+    // Permissions Variables
+    private static final int REQ_READ_CALENDAR = 1;
+    private static final int REQ_WRITE_CALENDAR = 2;
+    private static final String TAG = "CalendarPermissions";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calendar, container, false);
+        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
+
+        // Get the Calendar View and add the on click listener to it
+        mCalendarView = (CalendarView) view.findViewById(R.id.calendarView);
+        mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                Log.w("Date info: ", month + "/" + dayOfMonth + "/" + year);
+                CalendarHandler.printEvents(getContext(), month+1, dayOfMonth, year);
+            }
+        });
+
+        // Gets calendar permissions.... maybe better to put this in the bottom navigation listener
+        Button updateCalendarButton = view.findViewById(R.id.updateCalendarButton);
+        updateCalendarButton.setOnClickListener(this);
+
+        return view;
     }
 
-//    // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-//    }
-//
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
-//
-//    /**
-//     * This interface must be implemented by activities that contain this
-//     * fragment to allow an interaction in this fragment to be communicated
-//     * to the activity and potentially other fragments contained in that
-//     * activity.
-//     * <p>
-//     * See the Android Training lesson <a href=
-//     * "http://developer.android.com/training/basics/fragments/communicating.html"
-//     * >Communicating with Other Fragments</a> for more information.
-//     */
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        void onFragmentInteraction(Uri uri);
-//    }
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+
+            // If you click the update calendar button
+            case R.id.updateCalendarButton:
+                Log.w("ClickipooMagoo", "This button was clicked.");
+                try {
+                    // Request permission if not already granted
+                    getCalendarData();
+                    // Get the calendar data from the user's calendar
+                    // CalendarHandler.getDataFromCalendarTable(v);
+                    //CalendarHandler.readCalendar(getContext());
+                    //mListOfEvents = CalendarHandler.getEvents();
+                } catch (Exception e) {
+                    Log.w("ListException", e);
+                }
+                break;
+        }
+    }
+
+    private void getCalendarData() {
+        Context context = getContext();
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.READ_CALENDAR}, REQ_READ_CALENDAR);
+        } else {
+            CalendarHandler.getDataFromCalendarTable(context);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        if (requestCode == REQ_READ_CALENDAR
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            getDataFromCalendarTable();
+        }
+    }
+
+    public void getDataFromCalendarTable() {
+        Cursor cur = null;
+        Context context = getContext();
+        ContentResolver cr = context.getContentResolver();
+
+        //requestCalendarReadPermission(context, activity);
+
+        String[] mProjection =
+                {
+                        CalendarContract.Calendars.ALLOWED_ATTENDEE_TYPES,
+                        CalendarContract.Calendars.ACCOUNT_NAME,
+                        CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,
+                        CalendarContract.Calendars.CALENDAR_LOCATION,
+                        CalendarContract.Calendars.CALENDAR_TIME_ZONE
+                };
+
+        Uri uri = CalendarContract.Calendars.CONTENT_URI;
+        String selection = "((" + CalendarContract.Calendars.ACCOUNT_NAME + " = ?) AND ("+ CalendarContract.Calendars.ACCOUNT_TYPE + " = ?))";
+        String[] selectionArgs = new String[]{"apaczak2@gmail.com", "apaczak2.gmail.com"};
+
+
+
+        cur = cr.query(uri, mProjection, selection, selectionArgs, null);
+
+        while (cur.moveToNext()) {
+            String displayName = cur.getString(cur.getColumnIndex(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME));
+            String accountName = cur.getString(cur.getColumnIndex(CalendarContract.Calendars.ACCOUNT_NAME));
+
+            Log.w(TAG, displayName);
+        }
+        //addEvent(v);
+
+    }
+
 }

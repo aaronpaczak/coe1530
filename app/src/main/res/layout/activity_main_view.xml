@@ -14,24 +14,6 @@
        android:layout_above="@+id/navigation"
        android:layout_alignParentTop="true" />
 
-        <!--<fragment android:name="coe1530.eatyourleftovers.TodoItemFragment"-->
-            <!--android:id="@+id/todoitem_fragment"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent" />-->
-
-        <!--<fragment android:name="coe1530.eatyourleftovers.CalendarFragment"-->
-            <!--android:id="@+id/calendar_fragment"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent" />-->
-
-        <!--<fragment android:name="coe1530.eatyourleftovers.MapFragment"-->
-            <!--android:id="@+id/map_fragment"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent" />-->
-
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"
@@ -42,6 +24,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/navigation" />
+        app:menu="@menu/navigation"
+        app:layout_insetEdge="bottom"/>
 
 </android.support.constraint.ConstraintLayout>

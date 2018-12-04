@@ -21,18 +21,23 @@ public class ToDoList {
      */
     public static final Map<String, ToDoItem> ITEM_MAP = new HashMap<String, ToDoItem>();
 
-    private static final int COUNT = 1;
+    private static final int COUNT = 0;
 
     static {
         // Add some sample items.
         for (int i = 1; i <= COUNT; i++) {
-            addItem(createItem("Sample ToDoItem", 60, 1, "This is an example item."));
+            addItem(createItem("Sample ToDoItem", 60, COUNT-i, "This is an example item."));
         }
     }
 
     private static void addItem(ToDoItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.name, item);
+    }
+
+    private static void removeItem(ToDoItem item) {
+        ITEMS.remove(item);
+        ITEM_MAP.remove(item.name);
     }
 
     private static ToDoItem createItem(String name, int duration, int priority, String details) {
@@ -54,11 +59,13 @@ public class ToDoList {
         public int priority; //priority of task
         public final String details; //additional information about task
 
-        public ToDoItem(String name, int content, int priority, String details) {
+        public ToDoItem(String name, int duration, int priority, String details) {
             this.name = name;
             this.duration = duration;
             this.priority = priority;
             this.details = details;
+
+            addItem(this);
         }
 
         @Override

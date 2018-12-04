@@ -1,19 +1,19 @@
 package coe1530.eatyourleftovers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import coe1530.eatyourleftovers.dummy.DummyContent;
-import coe1530.eatyourleftovers.dummy.DummyContent.DummyItem;
 import coe1530.eatyourleftovers.dummy.ToDoList;
-
 import java.util.List;
 
 /**
@@ -22,13 +22,17 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class TodoItemFragment extends Fragment {
+public class TodoItemFragment extends Fragment implements View.OnClickListener{
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+
+    // Member variables for the adapter and RecyclerView
+    private MyTodoItemRecyclerViewAdapter mAdapter;
+    RecyclerView mRecyclerView;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -56,22 +60,34 @@ public class TodoItemFragment extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_todoitem_list, container, false);
+        super.onCreate(savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment_todoitem, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyTodoItemRecyclerViewAdapter(ToDoList.ITEMS, mListener));
-        }
+        // Set the RecyclerView to its corresponding view
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewTasks);
+        Context context = view.getContext();
+
+        // Set the layout for the RecyclerView to be a linear layout, which measures and
+        // positions items within a RecyclerView into a linear list
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+        // Initialize the adapter and attach it to the RecyclerView
+        mAdapter = new MyTodoItemRecyclerViewAdapter(ToDoList.ITEMS, mListener);
+        mRecyclerView.setAdapter(mAdapter);
+
+
+        /*
+         Set the Floating Action Button (FAB) to its corresponding View.
+         Attach an OnClickListener to it, so that when it's clicked, a new intent will be created
+         to launch the AddTaskActivity.
+         */
+        FloatingActionButton fabButton = view.findViewById(R.id.fab);
+        fabButton.setOnClickListener(this);
+
         return view;
     }
 
@@ -92,6 +108,17 @@ public class TodoItemFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fab:
+                Intent addTaskIntent = new Intent(getActivity(), AddTaskActivity.class);
+                startActivity(addTaskIntent);
+                break;
+        }
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this

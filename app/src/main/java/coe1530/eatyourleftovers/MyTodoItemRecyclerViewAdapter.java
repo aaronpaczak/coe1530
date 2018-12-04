@@ -1,8 +1,10 @@
 package coe1530.eatyourleftovers;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,46 +31,21 @@ public class MyTodoItemRecyclerViewAdapter extends RecyclerView.Adapter<MyTodoIt
         mListener = listener;
     }
 
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_todoitem, parent, false);
-
-        /*
-         Set the Floating Action Button (FAB) to its corresponding View.
-         Attach an OnClickListener to it, so that when it's clicked, a new intent will be created
-         to launch the AddTaskActivity.
-         */
-
-        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent in = new Intent(getActivity(), InsertActivity.class);
-                startActivity(in);
-            }
-        });
-
-
-        FloatingActionButton fabButton = (FloatingActionButton) findViewById(R.id.fab);
-
-        fabButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Create a new intent to start an AddTaskActivity
-                Intent addTaskIntent = new Intent(MainActivity.this, AddTaskActivity.class);
-                startActivity(addTaskIntent);
-            }
-        });
-
+                .inflate(R.layout.fragment_todoitem_list, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).name);
-        holder.mContentView.setText(mValues.get(position).details);
+
+        holder.mTitleView.setText(mValues.get(position).name);
+        holder.mPriorityView.setText(String.valueOf(mValues.get(position).priority));
+
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +54,7 @@ public class MyTodoItemRecyclerViewAdapter extends RecyclerView.Adapter<MyTodoIt
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem);
+                    Log.w("ITEM CLICKEDDDD", "title: " + holder.mItem.name);
                 }
             }
         });
@@ -89,20 +67,20 @@ public class MyTodoItemRecyclerViewAdapter extends RecyclerView.Adapter<MyTodoIt
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public final TextView mTitleView;
+        public final TextView mPriorityView;
         public ToDoItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mTitleView = (TextView) view.findViewById(R.id.title);
+            mPriorityView = (TextView) view.findViewById(R.id.priorityDisplay);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mPriorityView.getText() + "'";
         }
     }
 }
