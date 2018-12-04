@@ -53,10 +53,12 @@ public class CalendarFragment extends Fragment implements View.OnClickListener, 
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                Log.w("Date info bro: ", month + "/" + dayOfMonth + "/" + year);
+                Log.w("Date info: ", month + "/" + dayOfMonth + "/" + year);
+                CalendarHandler.printEvents(getContext(), month+1, dayOfMonth, year);
             }
         });
 
+        // Gets calendar permissions.... maybe better to put this in the bottom navigation listener
         Button updateCalendarButton = view.findViewById(R.id.updateCalendarButton);
         updateCalendarButton.setOnClickListener(this);
 

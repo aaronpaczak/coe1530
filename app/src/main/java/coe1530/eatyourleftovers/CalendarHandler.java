@@ -133,10 +133,8 @@ public class CalendarHandler {
         String selection = "((" + CalendarContract.Calendars.ACCOUNT_NAME + " = ?) AND ("+ CalendarContract.Calendars.ACCOUNT_TYPE + " = ?))";
         String[] selectionArgs = new String[]{"apaczak2@gmail.com", "apaczak2.gmail.com"};
 
-
-
         cur = cr.query(uri, mProjection, selection, selectionArgs, null);
-        Log.w("SUCCESS", selectionArgs[0]);
+        Log.w("SUCCESS", selectionArgs[0] + " and " + cur);
 
         while (cur.moveToNext()) {
             String displayName = cur.getString(cur.getColumnIndex(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME));
@@ -145,6 +143,42 @@ public class CalendarHandler {
             Log.w(TAG, displayName);
         }
         //addEvent(v);
+
+    }
+
+    public static void printEvents(Context context, int month, int day, int year) {
+        Cursor cur = null;
+        ContentResolver cr = context.getContentResolver();
+
+        //requestCalendarReadPermission(context, activity);
+
+        String[] mProjection =
+                {
+                        CalendarContract.Events.TITLE,
+                        CalendarContract.Events.EVENT_LOCATION,
+                        CalendarContract.Events.DTSTART,
+                        CalendarContract.Events.DTEND
+                };
+
+        Uri uri = CalendarContract.Events.CONTENT_URI;
+        String selection = "((" + CalendarContract.Events.TITLE + " = ?) " +
+                "AND ("+ CalendarContract.Events.EVENT_LOCATION + " = ?) " +
+                "AND ("+ CalendarContract.Events.DTSTART + " = ?) " +
+                "AND ("+ CalendarContract.Events.DTEND + " = ?))";
+        String[] selectionArgs = new String[]{"apaczak2@gmail.com", "apaczak2.gmail.com"};
+
+        cur = cr.query(uri, null, null, null, null);
+        Log.w("SUCCESS", selectionArgs[0] + " and " + cur);
+
+        cur.moveToFirst();
+        while (cur.moveToNext()) {
+            String eventName = cur.getString(cur.getColumnIndex(CalendarContract.Events.TITLE));
+            String loc = cur.getString(cur.getColumnIndex(CalendarContract.Events.EVENT_LOCATION));
+            String stime = cur.getString(cur.getColumnIndex(CalendarContract.Events.DTSTART));
+            String etime = cur.getString(cur.getColumnIndex(CalendarContract.Events.DTEND));
+
+            Log.w("EVENTS", eventName + "\t" + loc + "\t" + stime + "\t" + etime);
+        }
 
     }
 
