@@ -42,7 +42,7 @@ public class MyTodoItemRecyclerViewAdapter extends RecyclerView.Adapter<MyTodoIt
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        Log.w("VALUE CHECKER", "priority: " + mValues.get(position).priority);
+
         holder.mTitleView.setText(mValues.get(position).name);
         holder.mPriorityView.setText(String.valueOf(mValues.get(position).priority));
 
@@ -54,6 +54,7 @@ public class MyTodoItemRecyclerViewAdapter extends RecyclerView.Adapter<MyTodoIt
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem);
+                    Log.w("ITEM CLICKEDDDD", "title: " + holder.mItem.name);
                 }
             }
         });

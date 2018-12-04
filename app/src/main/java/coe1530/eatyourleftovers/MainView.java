@@ -20,7 +20,7 @@ public class MainView extends AppCompatActivity implements TodoItemFragment.OnLi
     private BottomNavigationView navigation;
     private Fragment fragment;
     private FragmentManager fragmentManager;
-    CaldroidFragment caldroidFragment = new CaldroidFragment();
+    // CaldroidFragment caldroidFragment = new CaldroidFragment();
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -30,7 +30,7 @@ public class MainView extends AppCompatActivity implements TodoItemFragment.OnLi
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_calendar:
-                    fragment = caldroidFragment;
+                    fragment = new CalendarFragment();
                     break;
                 case R.id.navigation_todo:
                     fragment = new TodoItemFragment();
@@ -52,7 +52,6 @@ public class MainView extends AppCompatActivity implements TodoItemFragment.OnLi
         super.onCreate(savedInstanceState);
         // Blows up what belongs in the xml file whose xml file is "layout/activity_main_view"
         setContentView(R.layout.activity_main_view);
-
 
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         //navigation.inflateMenu(R.menu.navigation);
