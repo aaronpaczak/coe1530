@@ -35,7 +35,7 @@ public class ToDoList {
         ITEM_MAP.put(item.name, item);
     }
 
-    private static void removeItem(ToDoItem item) {
+    public static void removeItem(ToDoItem item) {
         ITEMS.remove(item);
         ITEM_MAP.remove(item.name);
     }

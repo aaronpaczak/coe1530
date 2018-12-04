@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="1 hour"
+            android:text="0 hours"
             android:textAlignment="center"/>
     </LinearLayout>
 
@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:max="10"
         android:onClick="onProgressChanged"
-        android:progress="1" />
+        android:progress="0" />
 
     <TextView
         android:layout_width="wrap_content"

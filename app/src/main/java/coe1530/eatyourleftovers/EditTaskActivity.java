@@ -149,7 +149,13 @@ public class EditTaskActivity extends AppCompatActivity {
         // Check if no duration has been selected.
         if (mDuration == 0) { return; }
 
-        // Create To Do Item
+        // Remove old To Do Item
+        Intent theIntent=getIntent();
+        theIntent.getExtras();
+        Bundle extras = getIntent().getExtras();
+        String theTitle=extras.getString("Task Name");
+        ToDoList.removeItem(ToDoList.getToDoItem(theTitle));
+        // Create Edited To Do Item
         new ToDoList.ToDoItem(title, mDuration, mPriority, desc);
 
 //        For Database entry, use the infrastructure provided by Google in the data folder
@@ -167,6 +173,16 @@ public class EditTaskActivity extends AppCompatActivity {
 //        }
 
         // Finish activity (this returns back to MainView's current fragment AKA ToDoFragment)
+        finish();
+    }
+
+    public void onClickRemoveTask(View view) {
+        // Remove old To Do Item
+        Intent theIntent=getIntent();
+        theIntent.getExtras();
+        Bundle extras = getIntent().getExtras();
+        String theTitle=extras.getString("Task Name");
+        ToDoList.removeItem(ToDoList.getToDoItem(theTitle));
         finish();
     }
 

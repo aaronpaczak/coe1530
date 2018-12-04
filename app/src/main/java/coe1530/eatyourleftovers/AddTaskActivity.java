@@ -99,12 +99,7 @@ public class AddTaskActivity extends AppCompatActivity {
         String desc = ((EditText) findViewById(R.id.editTextTaskDescription)).getText().toString();
         if (desc.length() == 0 || title.equalsIgnoreCase("ToDo Description")) { return; }
 
-        // Check if no priority has been selected.
-        if (mPriority == 0) { return; }
-
-        // Check if no duration has been selected.
-        if (mDuration == 0) { return; }
-
+        if (mDuration == 0 ) {return;}
         // Create To Do Item
         new ToDoList.ToDoItem(title, mDuration, mPriority, desc);
 
