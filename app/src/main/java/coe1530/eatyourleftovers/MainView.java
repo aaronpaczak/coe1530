@@ -1,11 +1,13 @@
 package coe1530.eatyourleftovers;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 <<<<<<< Updated upstream
 public class MainView extends AppCompatActivity {
@@ -22,6 +24,7 @@ public class MainView extends AppCompatActivity implements TodoItemFragment.OnLi
     private BottomNavigationView navigation;
     private Fragment fragment;
     private FragmentManager fragmentManager;
+<<<<<<< Updated upstream
 //    CaldroidFragment caldroidFragment = new CaldroidFragment();
     CaldroidFragment caldroidFragment = new CaldroidCustomFragment();
 //    CaldroidActivity caldroidActivity = new CaldroidActivity();
@@ -29,6 +32,13 @@ public class MainView extends AppCompatActivity implements TodoItemFragment.OnLi
 >>>>>>> Stashed changes
 
     private TextView mTextMessage;
+=======
+
+    Context context;
+    CharSequence text;
+    int duration;
+    Toast toast;
+>>>>>>> Stashed changes
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -58,6 +68,11 @@ public class MainView extends AppCompatActivity implements TodoItemFragment.OnLi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        context = getApplicationContext();
+        text = "Hello toast!";
+        duration = Toast.LENGTH_SHORT;
+        toast = Toast.makeText(context, text, duration);
+        toast.show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_view);
 
