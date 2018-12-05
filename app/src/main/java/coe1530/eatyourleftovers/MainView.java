@@ -1,7 +1,9 @@
 package coe1530.eatyourleftovers;
 
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,12 +14,9 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
-import com.roomorama.caldroid.CaldroidFragment;
-
-import coe1530.eatyourleftovers.dummy.DummyContent;
-import coe1530.eatyourleftovers.dummy.ToDoList;
+import static android.app.Notification.VISIBILITY_PUBLIC;
+import static android.app.PendingIntent.getActivity;
 
 public class MainView extends AppCompatActivity implements TodoItemFragment.OnListFragmentInteractionListener {
 
@@ -68,15 +67,45 @@ public class MainView extends AppCompatActivity implements TodoItemFragment.OnLi
 
     }
 
-    public void sendNotification(View view)
-    {
+    public void sendNotification(View view) {
+        CalendarList.CalendarItem item = new CalendarList.CalendarItem("0","1","Study");
+        Intent intent = new Intent();
+        PendingIntent pendingIntent = getActivity(getApplicationContext(), 0, intent,0);
 
+//        NotificationCompat.Style style = new NotificationCompat.BigPictureStyle();
+        NotificationCompat.Style style = new NotificationCompat.DecoratedCustomViewStyle();
         //Get an instance of NotificationManager
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.notification)
-                        .setContentTitle("My notification")
-                        .setContentText("Hello World!");
+                        .setContentTitle("You have free time!")
+                        .setVisibility(VISIBILITY_PUBLIC)
+                        .setFullScreenIntent(pendingIntent, true)
+                        .setStyle(style)
+                        .setContentText("Why don't you work on '" + item.toString() + "'?");
+
+
+        // Gets an instance of the NotificationManager service
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(001, mBuilder.build());
+    }
+
+    public void sendNotification(CalendarList.CalendarItem item) {
+        Intent intent = new Intent();
+        PendingIntent pendingIntent = getActivity(getApplicationContext(), 0, intent,0);
+
+//        NotificationCompat.Style style = new NotificationCompat.BigPictureStyle();
+        NotificationCompat.Style style = new NotificationCompat.DecoratedCustomViewStyle();
+        //Get an instance of NotificationManager
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.notification)
+                        .setContentTitle("You have free time!")
+                        .setVisibility(VISIBILITY_PUBLIC)
+                        .setFullScreenIntent(pendingIntent, true)
+                        .setStyle(style)
+                        .setContentText("Why don't you work on '" + item.toString() + "'?");
 
 
         // Gets an instance of the NotificationManager service

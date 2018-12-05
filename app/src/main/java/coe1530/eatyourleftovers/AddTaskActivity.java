@@ -29,20 +29,13 @@ package coe1530.eatyourleftovers;
 //}
 
 
-import android.content.ContentValues;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import coe1530.eatyourleftovers.data.TaskContract;
-import coe1530.eatyourleftovers.dummy.ToDoList;
 
 public class AddTaskActivity extends AppCompatActivity {
 
