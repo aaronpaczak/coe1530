@@ -35,7 +35,7 @@ public class ToDoList {
         ITEM_MAP.put(item.name, item);
     }
 
-    private static void removeItem(ToDoItem item) {
+    public static void removeItem(ToDoItem item) {
         ITEMS.remove(item);
         ITEM_MAP.remove(item.name);
     }
@@ -50,6 +50,9 @@ public class ToDoList {
         return builder.toString();
     }
 
+    public static ToDoItem getToDoItem(String name) {
+        return(ITEM_MAP.get(name));
+    }
     /**
      * A dummy item representing a piece of content.
      */

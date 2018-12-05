@@ -19,7 +19,6 @@ import java.util.List;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
 public class MyTodoItemRecyclerViewAdapter extends RecyclerView.Adapter<MyTodoItemRecyclerViewAdapter.ViewHolder> {
 
@@ -44,9 +43,20 @@ public class MyTodoItemRecyclerViewAdapter extends RecyclerView.Adapter<MyTodoIt
         holder.mItem = mValues.get(position);
 
         holder.mTitleView.setText(mValues.get(position).name);
-        holder.mPriorityView.setText(String.valueOf(mValues.get(position).priority));
+        switch(mValues.get(position).priority)
+        {
+            case 1:
+                holder.mPriorityView.setText("HIGH");
+                break;
+            case 2:
+                holder.mPriorityView.setText("MEDIUM");
+                break;
+            case 3:
+                holder.mPriorityView.setText("LOW");
+                break;
+        }
 
-
+        // The click action when and item in the to do list is clicked
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,6 +65,11 @@ public class MyTodoItemRecyclerViewAdapter extends RecyclerView.Adapter<MyTodoIt
                     // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem);
                     Log.w("ITEM CLICKEDDDD", "title: " + holder.mItem.name);
+                    Context context=holder.mView.getContext();
+                    Intent editTaskIntent=new Intent(context, EditTaskActivity.class);
+                    editTaskIntent.putExtra("Task Name",holder.mItem.name);
+                    context.startActivity(editTaskIntent);
+                    Log.w("checking",holder.mItem.name);
                 }
             }
         });

@@ -14,7 +14,6 @@ package coe1530.eatyourleftovers;
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START calendar_handler]
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -253,71 +252,3 @@ public class CalendarHandler {
 
 }
 // [END calendar_handler]
-
-
-
-/*
-
-    public static void main(String... args) throws IOException, GeneralSecurityException, Exception {
-        // Build a new authorized API client service.
-        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-
-        // List the next 10 events from the primary calendar.
-        DateTime now = new DateTime(System.currentTimeMillis());
-        Events events = service.events().list("primary")
-                .setMaxResults(10)
-                .setTimeMin(now)
-                .setOrderBy("startTime")
-                .setSingleEvents(true)
-                .execute();
-        List<Event> items = events.getItems();
-        if (items.isEmpty()) {
-            System.out.println("No upcoming events found.");
-        } else {
-            System.out.println("Upcoming events");
-            for (Event event : items) {
-                DateTime start = event.getStart().getDateTime();
-                if (start == null) {
-                    start = event.getStart().getDate();
-                }
-                System.out.printf("%s (%s)\n", event.getSummary(), start);
-            }
-        }
-    }
-
-    public static void readCalendar(Context context) {
-        ContentResolver contentResolver = context.getContentResolver();
-
-        // Fetch a list of all calendars synced with the device, their display names and whether the
-        Cursor cursor = contentResolver.query(Uri.parse("content://com.android.calendar/calendars"),
-                (new String[]{"_id", "displayName", "selected"}), null, null, null);
-
-        HashSet<String> calendarIds = new HashSet<String>();
-
-        try {
-            System.out.println("Count=" + cursor.getCount());
-            if (cursor.getCount() > 0) {
-                System.out.println("the control is just inside of the cursor.count loop");
-                while (cursor.moveToNext()) {
-
-                    String _id = cursor.getString(0);
-                    String displayName = cursor.getString(1);
-                    Boolean selected = !cursor.getString(2).equals("0");
-
-                    System.out.println("Id: " + _id + " Display Name: " + displayName + " Selected: " + selected);
-                    calendarIds.add(_id);
-                }
-            }
-        } catch (AssertionError ex) {
-            ex.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        String[] cIDs = calendarIds.toArray(new String[calendarIds.size()]);
-        Log.w("CALS: ", cIDs[0]);
-    }
- */

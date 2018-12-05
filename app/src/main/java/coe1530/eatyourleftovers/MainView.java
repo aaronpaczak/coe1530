@@ -14,12 +14,16 @@ import com.roomorama.caldroid.CaldroidFragment;
 import coe1530.eatyourleftovers.dummy.DummyContent;
 import coe1530.eatyourleftovers.dummy.ToDoList;
 
+/*
+This is the main view for the application. THis view will switch between three fragments, one for a
+calendar view that displays items from the calendar app for a certain day, the to do list which holds
+items of interest to the user, and the help screen that the user can use to convey bugs to the developers.
+ */
 public class MainView extends AppCompatActivity implements TodoItemFragment.OnListFragmentInteractionListener {
 
     private BottomNavigationView navigation;
     private Fragment fragment;
     private FragmentManager fragmentManager;
-    // CaldroidFragment caldroidFragment = new CaldroidFragment();
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

@@ -22,7 +22,7 @@
     <EditText
         android:id="@+id/editTextTaskTitle"
         android:layout_width="match_parent"
-        android:text="ToDo Title"
+        android:text="Old ToDo Title"
         android:layout_height="wrap_content"
         android:gravity="start"
         android:paddingBottom ="@dimen/activity_horizontal_margin"/>
@@ -31,7 +31,7 @@
     <EditText
         android:id="@+id/editTextTaskDescription"
         android:layout_width="match_parent"
-        android:text="ToDo Description"
+        android:text="Old ToDo Description"
         android:layout_height="wrap_content"
         android:gravity="start"
         android:paddingBottom ="@dimen/activity_horizontal_margin"/>
@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="0 hours"
+            android:text="1 hour"
             android:textAlignment="center"/>
     </LinearLayout>
 
@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:max="10"
         android:onClick="onProgressChanged"
-        android:progress="0" />
+        android:progress="1" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -160,17 +160,29 @@
 
     </FrameLayout>
 
-    <!-- Add button -->
+    <!-- Edit button -->
     <Button
-        android:id="@+id/addButton"
-        android:text="Add"
+        android:id="@+id/editButton"
+        android:text="Edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         style="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/primary_text_dark"
         android:background="@color/colorPrimary"
-        android:onClick="onClickAddTask"/>
+        android:onClick="onClickEditTask"/>
+
+    <Button
+        android:id="@+id/removeButton"
+        android:text="Remove"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/primary_text_dark"
+        android:background="@color/colorPrimary"
+        android:onClick="onClickRemoveTask"
+        android:layout_marginTop="10dp"/>
 
     <!-- Cancel button -->
     <Button

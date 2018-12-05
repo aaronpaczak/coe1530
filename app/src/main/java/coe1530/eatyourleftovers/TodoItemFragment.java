@@ -17,16 +17,14 @@ import coe1530.eatyourleftovers.dummy.ToDoList;
 import java.util.List;
 
 /**
- * A fragment representing a list of Items.
+ * A fragment representing a list of To Do Items.
  * <p/>
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
 public class TodoItemFragment extends Fragment implements View.OnClickListener{
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
@@ -60,7 +58,6 @@ public class TodoItemFragment extends Fragment implements View.OnClickListener{
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -78,7 +75,6 @@ public class TodoItemFragment extends Fragment implements View.OnClickListener{
         // Initialize the adapter and attach it to the RecyclerView
         mAdapter = new MyTodoItemRecyclerViewAdapter(ToDoList.ITEMS, mListener);
         mRecyclerView.setAdapter(mAdapter);
-
 
         /*
          Set the Floating Action Button (FAB) to its corresponding View.
@@ -116,9 +112,13 @@ public class TodoItemFragment extends Fragment implements View.OnClickListener{
                 Intent addTaskIntent = new Intent(getActivity(), AddTaskActivity.class);
                 startActivity(addTaskIntent);
                 break;
+            case R.id.title:
+                Intent editTaskIntent = new Intent(getActivity(), EditTaskActivity.class);
+                editTaskIntent.putExtra("Task Name",R.id.title);
+                startActivity(editTaskIntent);
+                break;
         }
     }
-
 
     /**
      * This interface must be implemented by activities that contain this
