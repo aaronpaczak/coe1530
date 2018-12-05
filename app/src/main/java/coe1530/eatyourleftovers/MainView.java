@@ -23,8 +23,6 @@ public class MainView extends AppCompatActivity implements TodoItemFragment.OnLi
     private BottomNavigationView navigation;
     private Fragment fragment;
     private FragmentManager fragmentManager;
-    // CaldroidFragment caldroidFragment = new CaldroidFragment();
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -57,7 +55,6 @@ public class MainView extends AppCompatActivity implements TodoItemFragment.OnLi
         setContentView(R.layout.activity_main_view);
 
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        //navigation.inflateMenu(R.menu.navigation);
         fragmentManager = getSupportFragmentManager();
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
@@ -95,7 +92,6 @@ public class MainView extends AppCompatActivity implements TodoItemFragment.OnLi
         Intent intent = new Intent();
         PendingIntent pendingIntent = getActivity(getApplicationContext(), 0, intent,0);
 
-//        NotificationCompat.Style style = new NotificationCompat.BigPictureStyle();
         NotificationCompat.Style style = new NotificationCompat.DecoratedCustomViewStyle();
         //Get an instance of NotificationManager
         NotificationCompat.Builder mBuilder =
