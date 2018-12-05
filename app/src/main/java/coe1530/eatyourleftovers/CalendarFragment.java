@@ -168,12 +168,32 @@ public class CalendarFragment extends Fragment implements View.OnClickListener, 
 
     // Test query for after calendar data has been granted permission with the update calendar button.
     public void getDataFromCalendarTable() {
+//        Cursor cur = null;
+//        Context context = getContext();
+//        ContentResolver cr = context.getContentResolver();
+//        Uri uri = CalendarContract.Calendars.CONTENT_URI;
+//        String[] selectionArgs = new String[]{"apaczak2@gmail.com", "apaczak2.gmail.com"};
+//        cur = cr.query(uri, null, null, selectionArgs, null);
+//        while (cur.moveToNext()) {
+//            String displayName = cur.getString(cur.getColumnIndex(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME));
+//            Log.w(TAG, displayName);
+//        }
         Cursor cur = null;
-        Context context = getContext();
-        ContentResolver cr = context.getContentResolver();
+        ContentResolver cr = getContext().getContentResolver();
+        String[] mProjection =
+                {
+                        CalendarContract.Calendars.ALLOWED_ATTENDEE_TYPES,
+                        CalendarContract.Calendars.ACCOUNT_NAME,
+                        CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,
+                        CalendarContract.Calendars.CALENDAR_LOCATION,
+                        CalendarContract.Calendars.CALENDAR_TIME_ZONE
+                };
+
         Uri uri = CalendarContract.Calendars.CONTENT_URI;
+        String selection = "((" + CalendarContract.Calendars.ACCOUNT_NAME + " = ?) AND ("+ CalendarContract.Calendars.ACCOUNT_TYPE + " = ?))";
         String[] selectionArgs = new String[]{"apaczak2@gmail.com", "apaczak2.gmail.com"};
-        cur = cr.query(uri, null, null, selectionArgs, null);
+        cur = cr.query(uri, mProjection, selection, selectionArgs, null);
+        Log.w("SUCCESS", selectionArgs[0] + " and " + cur);
         while (cur.moveToNext()) {
             String displayName = cur.getString(cur.getColumnIndex(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME));
             Log.w(TAG, displayName);
