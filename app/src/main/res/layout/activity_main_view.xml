@@ -27,5 +27,11 @@
         app:menu="@menu/navigation"
         app:layout_insetEdge="bottom"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do it!"
+        android:id="@+id/button"
+        android:onClick="sendNotification"/>
 
 </android.support.constraint.ConstraintLayout>

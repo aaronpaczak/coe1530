@@ -1,33 +1,11 @@
 package coe1530.eatyourleftovers;
 
-import android.content.Context;
-import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import java.util.List;
-
-import coe1530.eatyourleftovers.dummy.CalendarList;
-import coe1530.eatyourleftovers.dummy.DummyContent;
-
-import android.content.Context;
-import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
-import coe1530.eatyourleftovers.TodoItemFragment.OnListFragmentInteractionListener;
-import coe1530.eatyourleftovers.dummy.DummyContent.DummyItem;
-import coe1530.eatyourleftovers.dummy.ToDoList.ToDoItem;
 
 import java.util.List;
 

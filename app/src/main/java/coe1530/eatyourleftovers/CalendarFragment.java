@@ -1,21 +1,15 @@
 package coe1530.eatyourleftovers;
 
 import android.Manifest;
-import android.app.Activity;
-import android.app.usage.UsageEvents;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -27,15 +21,12 @@ import android.widget.CalendarView;
 
 import com.google.api.services.calendar.model.Event;
 
-import java.net.ConnectException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import coe1530.eatyourleftovers.dummy.CalendarList;
-import coe1530.eatyourleftovers.dummy.ToDoList;
 
 public class CalendarFragment extends Fragment implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback  {
 

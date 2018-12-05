@@ -1,4 +1,4 @@
-package coe1530.eatyourleftovers.dummy;
+package coe1530.eatyourleftovers;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

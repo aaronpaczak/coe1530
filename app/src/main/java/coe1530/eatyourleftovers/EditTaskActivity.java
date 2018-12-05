@@ -13,8 +13,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import coe1530.eatyourleftovers.data.TaskContract;
-import coe1530.eatyourleftovers.dummy.ToDoList;
 
 public class EditTaskActivity extends AppCompatActivity {
 
