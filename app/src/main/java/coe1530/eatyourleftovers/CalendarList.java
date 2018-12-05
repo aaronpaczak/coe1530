@@ -1,4 +1,6 @@
 package coe1530.eatyourleftovers;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -71,6 +73,7 @@ public class CalendarList {
             this.title = title;
 
             addItem(this, today);
+            Log.w("CALLISTLEN", "today: " + TODAYS_ITEMS.size() + " shown: " + SHOWN_ITEMS.size());
         }
 
         @Override

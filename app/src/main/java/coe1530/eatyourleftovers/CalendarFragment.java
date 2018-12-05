@@ -58,7 +58,7 @@ public class CalendarFragment extends Fragment implements View.OnClickListener, 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewCalendarEvents);
         Context context = view.getContext();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mAdapter = new MyCalendarItemRecyclerViewAdapter(CalendarList.SHOWN_ITEMS, mListener);
+        mAdapter = new MyCalendarItemRecyclerViewAdapter(CalendarList.TODAYS_ITEMS, mListener);
         mRecyclerView.setAdapter(mAdapter);
 
         // Get the Calendar View and add the on click listener to it
@@ -78,7 +78,7 @@ public class CalendarFragment extends Fragment implements View.OnClickListener, 
                     Date date = df.parse(day);
                     long day_epoch = date.getTime();
                     long next_day = day_epoch + seconds_in_a_day;
-                    printEventsFromDate(getContext(), day_epoch, next_day, false);
+                    printEventsFromDate(day_epoch, next_day, false);
 
                 } catch (Exception e){
                     Log.w("Date Parser", "The date selected was unable to be parsed.");
@@ -102,6 +102,9 @@ public class CalendarFragment extends Fragment implements View.OnClickListener, 
             case R.id.updateCalendarButton:
                 Log.w(TAG, "Updating today's events.");
                 try {
+
+                    getCalendarData();
+
                     // TODAYs events
                     Date today = java.util.Calendar.getInstance().getTime();
                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -112,7 +115,7 @@ public class CalendarFragment extends Fragment implements View.OnClickListener, 
                         Date date = df.parse(formattedToday);
                         long today_epoch = date.getTime();
                         long tomorrow = today_epoch + seconds_in_a_day;
-                        printEventsFromDate(getContext(), today_epoch, tomorrow, true);
+                        printEventsFromDate(today_epoch, tomorrow, true);
 
                     } catch (Exception e){
                         Log.w("Date Parser", "The date selected was unable to be parsed.");
@@ -145,6 +148,8 @@ public class CalendarFragment extends Fragment implements View.OnClickListener, 
         Context context = getContext();
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.READ_CALENDAR}, REQ_READ_CALENDAR);
+        } else {
+            getDataFromCalendarTable();
         }
     }
 
@@ -182,24 +187,24 @@ public class CalendarFragment extends Fragment implements View.OnClickListener, 
 
         Uri uri = CalendarContract.Calendars.CONTENT_URI;
         String selection = "((" + CalendarContract.Calendars.ACCOUNT_NAME + " = ?) AND ("+ CalendarContract.Calendars.ACCOUNT_TYPE + " = ?))";
-        String[] selectionArgs = new String[]{"apaczak2@gmail.com", "apaczak2.gmail.com"};
-        cur = cr.query(uri, mProjection, selection, selectionArgs, null);
+        String[] selectionArgs = new String[]{"apaczak2@gmail.com", "gmail.com"};
+        cur = cr.query(uri, null, null, null, null);
         Log.w("SUCCESS", selectionArgs[0] + " and " + cur);
         while (cur.moveToNext()) {
             String displayName = cur.getString(cur.getColumnIndex(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME));
-            Log.w(TAG, displayName);
+            Log.w("DisplayName", displayName);
         }
     }
 
     // Returns a list of events to be displayed in the calendar recycler view on the calendar fragment
-    public void printEventsFromDate(Context context, long day, long next, boolean today) {
+    public void printEventsFromDate(long day, long next, boolean today) {
 
         // check permissions
-        getCalendarData();
+        // getCalendarData();
 
         // Prepare the data for a query, some we need some we dont
         Cursor cur = null;
-        ContentResolver cr = context.getContentResolver();
+        ContentResolver cr = getContext().getContentResolver();
         Log.w("Day and next day", "day selected: " + day + " next day: " + next);
         Uri uri = CalendarContract.Events.CONTENT_URI;
         String[] selectionArgs = new String[]{"apaczak2@gmail.com", "apaczak2.gmail.com"};
@@ -215,6 +220,7 @@ public class CalendarFragment extends Fragment implements View.OnClickListener, 
             String stime = cur.getString(cur.getColumnIndex(CalendarContract.Events.DTSTART));
             String etime = cur.getString(cur.getColumnIndex(CalendarContract.Events.DTEND));
             String duration = cur.getString(cur.getColumnIndex(CalendarContract.Events.DURATION));
+            String calID = cur.getString(cur.getColumnIndex(CalendarContract.Events.CALENDAR_ID));
 
             // format the data from epochs to time
             long stime_long = Long.parseLong(stime);
@@ -222,14 +228,14 @@ public class CalendarFragment extends Fragment implements View.OnClickListener, 
             stime = formatDate(stime_long);
             etime = formatDate(etime_long);
 
-            Log.w("EVENTS", eventName + "\t" + day + "\t" + stime_long + "\t" + next);
+            Log.w("EVENTS", eventName + "\t" + day + "\t" + stime_long + "\t" + next + "\t" + calID);
             // Add event to whatever list if its during that day
-            if (stime_long < next && stime_long > day){
-                Log.w("EVENTS", eventName + "\t" + loc + "\t" + stime + "\t" + etime + "\t" + duration);
+            //if (stime_long < next && stime_long > day){
+                //Log.w("EVENTS", eventName + "\t" + loc + "\t" + stime + "\t" + etime + "\t" + duration);
 
                 // Create new calendar item
-                new CalendarList.CalendarItem(stime, etime, eventName, today);
-            }
+            new CalendarList.CalendarItem(stime, etime, eventName, today);
+            //}
         }
     }
 
