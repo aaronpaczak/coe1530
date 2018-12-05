@@ -27,11 +27,24 @@
         app:menu="@menu/navigation"
         app:layout_insetEdge="bottom"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Do it!"
-        android:id="@+id/button"
-        android:onClick="sendNotification"/>
+    <!--<Button-->
+        <!--android:id="@+id/button"-->
+        <!--android:layout_width="203dp"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginStart="92dp"-->
+        <!--android:layout_marginLeft="92dp"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:layout_marginEnd="16dp"-->
+        <!--android:layout_marginRight="16dp"-->
+        <!--android:layout_marginBottom="100dp"-->
+        <!--android:onClick="sendNotification"-->
+        <!--android:text="What should I work on?"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/navigation"-->
+        <!--app:layout_constraintEnd_toStartOf="@+id/main_container"-->
+        <!--app:layout_constraintHorizontal_bias="0.0"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/main_container"-->
+        <!--app:layout_constraintVertical_bias="1.0" />-->
 
 </android.support.constraint.ConstraintLayout>

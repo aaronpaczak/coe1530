@@ -36,33 +36,53 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/main_container"
-        android:paddingBottom="52dp" >
+        android:paddingBottom="52dp">
 
         <!-- Floating action button that launches AddTaskActivity when clicked -->
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
             android:layout_above="@+id/main_container"
+            android:layout_gravity="end|bottom"
             android:layout_margin="8dp"
-            android:clickable="true"
-            android:elevation="200dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:clickable="true"
+            android:elevation="200dp"
             android:tint="@android:color/white"
-            app:srcCompat="@android:drawable/ic_input_add"/>
+            app:srcCompat="@android:drawable/ic_input_add" />
 
         <!-- RecyclerView that is responsible for holding a list of task data -->
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerViewTasks"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="true"
+            android:layout_above="@+id/main_container"
 
             android:layout_below="@+id/titleBar"
-            android:layout_above="@+id/main_container"
-            android:paddingBottom="25dp"/>
+            android:clipToPadding="true"
+            android:paddingBottom="25dp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="203dp"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="92dp"
+            android:layout_marginLeft="92dp"
+            android:layout_marginTop="300dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="100dp"
+            android:onClick="sendNotification"
+            android:text="What should I work on?"
+            app:layout_constraintBottom_toTopOf="@+id/navigation"
+            app:layout_constraintEnd_toStartOf="@+id/main_container"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_container"
+            app:layout_constraintVertical_bias="1.0" />
 
     </FrameLayout>
 </LinearLayout>
