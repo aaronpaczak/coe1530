@@ -75,10 +75,6 @@ public class CalendarFragment extends Fragment implements View.OnClickListener, 
                 try {
                     // Request permission if not already granted
                     getCalendarData();
-                    // Get the calendar data from the user's calendar
-                    // CalendarHandler.getDataFromCalendarTable(v);
-                    //CalendarHandler.readCalendar(getContext());
-                    //mListOfEvents = CalendarHandler.getEvents();
                 } catch (Exception e) {
                     Log.w("ListException", e);
                 }
@@ -90,8 +86,6 @@ public class CalendarFragment extends Fragment implements View.OnClickListener, 
         Context context = getContext();
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.READ_CALENDAR}, REQ_READ_CALENDAR);
-        } else {
-            CalendarHandler.getDataFromCalendarTable(context);
         }
     }
 
@@ -104,38 +98,18 @@ public class CalendarFragment extends Fragment implements View.OnClickListener, 
         }
     }
 
+    // Test query for after calendar data has been granted permission with the update calendar button.
     public void getDataFromCalendarTable() {
         Cursor cur = null;
         Context context = getContext();
         ContentResolver cr = context.getContentResolver();
-
-        //requestCalendarReadPermission(context, activity);
-
-        String[] mProjection =
-                {
-                        CalendarContract.Calendars.ALLOWED_ATTENDEE_TYPES,
-                        CalendarContract.Calendars.ACCOUNT_NAME,
-                        CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,
-                        CalendarContract.Calendars.CALENDAR_LOCATION,
-                        CalendarContract.Calendars.CALENDAR_TIME_ZONE
-                };
-
         Uri uri = CalendarContract.Calendars.CONTENT_URI;
-        String selection = "((" + CalendarContract.Calendars.ACCOUNT_NAME + " = ?) AND ("+ CalendarContract.Calendars.ACCOUNT_TYPE + " = ?))";
         String[] selectionArgs = new String[]{"apaczak2@gmail.com", "apaczak2.gmail.com"};
-
-
-
-        cur = cr.query(uri, mProjection, selection, selectionArgs, null);
-
+        cur = cr.query(uri, null, null, selectionArgs, null);
         while (cur.moveToNext()) {
             String displayName = cur.getString(cur.getColumnIndex(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME));
-            String accountName = cur.getString(cur.getColumnIndex(CalendarContract.Calendars.ACCOUNT_NAME));
-
             Log.w(TAG, displayName);
         }
-        //addEvent(v);
-
     }
 
 }
