@@ -53,9 +53,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.TimeZone;
 
 public class CalendarHandler {
     private static final String APPLICATION_NAME = "Google Calendar API Java Quickstart";
@@ -71,46 +75,6 @@ public class CalendarHandler {
      */
     private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR_READONLY);
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
-
-    /**
-     * Creates an authorized Credential object.
-     * @param HTTP_TRANSPORT The network HTTP Transport.
-     * @return An authorized Credential object.
-     * @throws IOException If the credentials.json file cannot be found.
-     */
-    private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException, Exception {
-        // Load client secrets.
-        InputStream in = CalendarHandler.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
-
-        // Build flow and trigger user authorization request.
-        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-                HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
-                .setAccessType("offline")
-                .build();
-        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
-        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
-    }
-
-    public static List<Event> getEvents() throws IOException, GeneralSecurityException, Exception {
-        // Build a new authorized API client service.
-        final HttpTransport HTTP_TRANSPORT = AndroidHttp.newCompatibleTransport();
-        Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials((NetHttpTransport) HTTP_TRANSPORT))
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-
-        // List the next 10 events from the primary calendar.
-        DateTime now = new DateTime(System.currentTimeMillis());
-        Events events = service.events().list("primary")
-                .setMaxResults(10)
-                .setTimeMin(now)
-                .setOrderBy("startTime")
-                .setSingleEvents(true)
-                .execute();
-        List<Event> items = events.getItems();
-        return items;
-    }
 
 
     public static void getDataFromCalendarTable(Context context) {
@@ -145,12 +109,15 @@ public class CalendarHandler {
 
     }
 
-    public static void printEvents(Context context, int month, int day, int year) {
+    public static void printEventsFromDate(Context context, long today, long tomorrow) {
         Cursor cur = null;
         ContentResolver cr = context.getContentResolver();
 
+        Log.w("TOMORROW AND TODAY", "today: " + today + " tomorrow: " + tomorrow);
+
         //requestCalendarReadPermission(context, activity);
 
+        /*
         String[] mProjection =
                 {
                         CalendarContract.Events.TITLE,
@@ -158,12 +125,15 @@ public class CalendarHandler {
                         CalendarContract.Events.DTSTART,
                         CalendarContract.Events.DTEND
                 };
+        */
 
         Uri uri = CalendarContract.Events.CONTENT_URI;
+        /*
         String selection = "((" + CalendarContract.Events.TITLE + " = ?) " +
                 "AND ("+ CalendarContract.Events.EVENT_LOCATION + " = ?) " +
                 "AND ("+ CalendarContract.Events.DTSTART + " = ?) " +
                 "AND ("+ CalendarContract.Events.DTEND + " = ?))";
+        */
         String[] selectionArgs = new String[]{"apaczak2@gmail.com", "apaczak2.gmail.com"};
 
         cur = cr.query(uri, null, null, null, null);
@@ -175,11 +145,36 @@ public class CalendarHandler {
             String loc = cur.getString(cur.getColumnIndex(CalendarContract.Events.EVENT_LOCATION));
             String stime = cur.getString(cur.getColumnIndex(CalendarContract.Events.DTSTART));
             String etime = cur.getString(cur.getColumnIndex(CalendarContract.Events.DTEND));
+            String duration = cur.getString(cur.getColumnIndex(CalendarContract.Events.DURATION));
 
-            Log.w("EVENTS", eventName + "\t" + loc + "\t" + stime + "\t" + etime);
+
+            long stime_long = Long.parseLong(stime);
+            stime = formatDate(stime_long);
+            if (stime_long < tomorrow && stime_long > today){
+                Log.w("EVENTS", eventName + "\t" + loc + "\t" + stime + "\t" + etime + "\t" + duration);
+            }
+
+
+
+
         }
 
     }
+
+    public static boolean todaysEvent(long epoch) {
+        boolean happensToday = false;
+
+        return happensToday;
+    }
+
+    public static String formatDate(long epoch) {
+        Date date = new Date(epoch);
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        format.setTimeZone(TimeZone.getTimeZone("America/New_York"));
+        String formatted = format.format(date);
+        return formatted;
+    }
+
 
     /**
      * Requests the Calendar READ Permission
