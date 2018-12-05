@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.roomorama.caldroid.CaldroidFragment;
 
@@ -35,8 +34,8 @@ public class MainView extends AppCompatActivity implements TodoItemFragment.OnLi
                 case R.id.navigation_todo:
                     fragment = new TodoItemFragment();
                     break;
-                case R.id.navigation_map:
-                    fragment = new MapFragment();
+                case R.id.navigation_help:
+                    fragment = new HelpFragment();
                     break;
             }
             final FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -53,6 +52,7 @@ public class MainView extends AppCompatActivity implements TodoItemFragment.OnLi
         super.onCreate(savedInstanceState);
         // Blows up what belongs in the xml file whose xml file is "layout/activity_main_view"
         setContentView(R.layout.activity_main_view);
+        //setContentView(R.layout.activity_login);
 
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         //navigation.inflateMenu(R.menu.navigation);
